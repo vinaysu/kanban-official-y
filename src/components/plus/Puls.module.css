@@ -1,0 +1,30 @@
+.footer {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.footer button {
+    cursor: pointer;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+
+.inner {
+
+    margin: 5px;
+    border: 2px solid yellow;
+    padding: 0 10px;
+    padding-top: 10px;
+}
+
+.textarea {
+    width: 80%;
+    padding: 10px 10px;
+    outline: none;
+    border-radius: 5px;
+}

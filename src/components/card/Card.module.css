@@ -1,0 +1,14 @@
+.card {
+    margin: 15px;
+    border: 2px solid rgb(116, 147, 14);
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    padding: 5px 10px;
+}
+.delIcon{
+    cursor: pointer;
+}
+.link{
+    text-decoration: none;
+}
