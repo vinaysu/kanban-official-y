@@ -2,17 +2,24 @@ import React, { useState } from 'react'
 import  styles from './Home.module.css';
 import Board from '../board/Board'
 import Plus from '../plus/Puls'
+import {v4 as uuid} from 'uuid'
+import {useRecoilState} from 'recoil'
+import {Boards} from '../atoms'
 
 
 function Home() {
 
-  const [boards, setBoards] = useState([])
+  const [boards, setBoards] = useRecoilState(Boards)
   const [target,setTarget]=useState({cardId:'',boardId:''})
+
+   console.log( Object.isExtensible(boards))
+  // Object.preventExtensions(boards)
 
   function addCard(title, boardId) {
     const card = {
-      id: Date.now() + Math.random(),
-      title: title
+      id: uuid(),
+      title: title,
+      description:''
     }
     const index = boards.findIndex((board) => board.id === boardId)
 
@@ -21,7 +28,10 @@ function Home() {
     }
 
     const newBoards = [...boards]
-    newBoards[index].cards.push(card)
+    // newBoards[index].cards.push(card)
+
+    newBoards[index] = {...newBoards[index],cards: [...newBoards[index].cards, card]}
+    
     setBoards(newBoards)
 
   }
@@ -46,7 +56,7 @@ function Home() {
 
   function addBoard(title) {
     setBoards([...boards, {
-      id: Date.now() + Math.random(),
+      id: uuid(),
       title: title,
       cards: []
     }])
@@ -94,9 +104,7 @@ function Home() {
 
   return (
     <div className={styles.home}>
-      {/* <div className='navbar'>
-        <h1>kanban board</h1>
-      </div> */}
+      
       <div className={styles.kanban}>
         <div className={styles.boards}>
           {
