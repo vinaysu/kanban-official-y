@@ -28,7 +28,7 @@ function Plus(props) {     //imported in board.js and Home.js
                         ></input>
                         <div className={styles.footer} >
                             <Button variant='outlined' 
-                            sx={{backgroundColor:'blue',color:'white'}}
+                            // sx={{backgroundColor:'blue',color:'white'}}
                             onClick={() => {
                                 if (inputValue == '') {
                                     alert('Input Field is Mandatory')

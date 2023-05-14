@@ -5,3 +5,11 @@ export const Boards=atom({
     key:'boards',
     default:[]
 })
+
+export const Local=atom({
+    key:'description',
+    default:{
+        boardId:'',
+        cardId:''
+    }
+})

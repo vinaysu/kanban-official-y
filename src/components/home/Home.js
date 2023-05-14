@@ -48,7 +48,10 @@ function Home() {
     }
 
     const newBoards = [...boards]
-    newBoards[bIndex].cards.splice(cIndex, 1)
+    
+    const cards = newBoards[bIndex].cards.slice();
+    cards.splice(cIndex, 1);
+    newBoards[bIndex] = { ...newBoards[bIndex], cards };
     setBoards(newBoards)
 
 
