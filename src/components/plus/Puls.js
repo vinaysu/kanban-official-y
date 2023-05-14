@@ -27,7 +27,9 @@ function Plus(props) {     //imported in board.js and Home.js
                             onChange={(event) => { setInputValue(event.target.value) }}
                         ></input>
                         <div className={styles.footer} >
-                            <Button variant='outlined' onClick={() => {
+                            <Button variant='outlined' 
+                            sx={{backgroundColor:'blue',color:'white'}}
+                            onClick={() => {
                                 if (inputValue == '') {
                                     alert('Input Field is Mandatory')
                                     myref.current.focus()

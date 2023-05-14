@@ -6,12 +6,12 @@ import Plus from '../plus/Puls'
 
 
 
-function Board({ board, removeBoard, addCard,removeCard }) {
+function Board({ board, removeBoard, addCard,removeCard,handleDragEnd,handleDragEnter }) {
   function onClick(title) {
     addCard(title, board.id)
   }
   return (
-    <div className={styles.board}>
+    <div className={styles.board}   droppable draggable >
       <div className={styles.board_top}>
         <div className={styles.title}>
           <p>{board.title}</p>
@@ -24,7 +24,10 @@ function Board({ board, removeBoard, addCard,removeCard }) {
       </div>
       <div className={styles.cards}>
         {
-          board.cards.map((card) =><Card key={card.id} card={card} removeCard={removeCard} board={board} />  )
+          board.cards.map((card) =><Card key={card.id} 
+          handleDragEnd={handleDragEnd}
+          handleDragEnter={handleDragEnter}
+          card={card} removeCard={removeCard} board={board} />  )
         }
 
       </div>

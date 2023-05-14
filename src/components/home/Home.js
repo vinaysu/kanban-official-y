@@ -1,47 +1,13 @@
 import React, { useState } from 'react'
-import './Home.css';
+import  styles from './Home.module.css';
 import Board from '../board/Board'
 import Plus from '../plus/Puls'
 
 
 function Home() {
 
-  const [boards, setBoards] = useState([
-    // {
-    //   id: Date.now() + Math.random() * 100,
-    //   title: 'board1',
-    //   cards: [
-    //     {
-    //       id: Date.now() + Math.random(),
-    //       title: 'card 1'
-    //     },
-    //     {
-    //       id: Date.now() + Math.random(),
-    //       title: 'card 2'
-    //     },
-    //     {
-    //       id: Date.now() + Math.random(),
-    //       title: 'card 3'
-    //     }
-    //   ]
-    // },
-    // {
-    //   id: Date.now() + Math.random() * 100,
-    //   title: 'board2',
-    //   cards: [
-    //     {
-    //       id: Date.now() + Math.random(),
-    //       title: 'card 1'
-    //     },
-    //     {
-    //       id: Date.now() + Math.random(),
-    //       title: 'card 2'
-    //     },
-
-    //   ]
-    // }
-
-  ])
+  const [boards, setBoards] = useState([])
+  const [target,setTarget]=useState({cardId:'',boardId:''})
 
   function addCard(title, boardId) {
     const card = {
@@ -92,15 +58,47 @@ function Home() {
     setBoards(newBoards)
   }
 
+  function handleDragEnter(cardId,boardId){
+    setTarget({
+      cardId:cardId,boardId:boardId
+    })
+
+  }
+
+  function handleDragEnd(cardId,boardId){
+
+    let s_boardIndex,s_cardIndex,t_boardIndex,t_cardIndex
+    s_boardIndex=boards.findIndex((board)=>board.id==boardId)
+    // if(s_boardIndex<0){return}
+
+    s_cardIndex=boards[s_boardIndex].cards.findIndex((card)=>card.id==cardId)
+    // if(s_cardIndex<0){return }
+
+    t_boardIndex=boards.findIndex((board)=>board.id==target.boardId)
+    // if(t_boardIndex<0){return}
+
+    t_cardIndex=boards[t_boardIndex].cards.findIndex((card)=>card.id==target.cardId)
+    // if(t_cardIndex<0){return }  
+
+    const tempBoards=[...boards]
+     const tempCrad=tempBoards[s_boardIndex].cards[s_cardIndex]
+     tempBoards[s_boardIndex].cards.splice(s_cardIndex,1)
+     tempBoards[t_boardIndex].cards.splice(t_cardIndex,0,tempCrad)
+
+     setBoards(tempBoards)
+
+
+  }
+
 
 
   return (
-    <div className="App">
-      <div className='navbar'>
+    <div className={styles.home}>
+      {/* <div className='navbar'>
         <h1>kanban board</h1>
-      </div>
-      <div className='kanban'>
-        <div className='boards'>
+      </div> */}
+      <div className={styles.kanban}>
+        <div className={styles.boards}>
           {
             boards.map((board) => <Board
               key={board.id}
@@ -108,6 +106,8 @@ function Home() {
               removeBoard={removeBoard}
               addCard={addCard}
               removeCard={removeCard}
+              handleDragEnd={handleDragEnd}
+              handleDragEnter={handleDragEnter}
             />)
           }
           <Plus card_outer='Add Board' card_inner='Add' placeholder='Enter the Board Title' onClick={addBoard} />
