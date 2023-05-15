@@ -1,33 +1,66 @@
 import React, { useState } from 'react'
-import { Dialog, DialogTitle } from '@mui/material'
+import styles from './Description.module.css'
+import { Dialog, DialogTitle, DialogContent } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilState,useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { Boards } from '../atoms'
-import {Local} from '../atoms'
+import { Local } from '../atoms'
+import CancelIcon from '@mui/icons-material/Cancel';
+
 
 function Description(props) {     //imported in app.js
 
   const [open, setOpen] = useState(true)
-  const boards= useRecoilValue(Boards)
+  const [boards, setBoards] = useRecoilState(Boards)
   const navigate = useNavigate()
-  const local= useRecoilValue(Local)
+  const local = useRecoilValue(Local)
 
-  
-const boardIndex = boards.findIndex((board) => board.id === local.boardId);
-const board = boards[boardIndex];
-const cardIndex = board && board.cards.findIndex((card) => card.id === local.cardId);
-const cards = board && board.cards.slice();
-const card=cards &&cards [cardIndex]
 
- 
+  const boardIndex = boards.findIndex((board) => board.id === local.boardId);
+  const board = boards[boardIndex];
+  const cardIndex = board && board.cards.findIndex((card) => card.id === local.cardId);
+  const cards = board && board.cards.slice();
+  const card = cards && cards[cardIndex]
+
+
   console.log(card)
-  
-  
+
+
 
   return (
     <div>
-      <h1>{card.title}</h1>
-      <h1 onClick={()=>navigate('/')}>home</h1>
+
+      <Dialog open={open} >
+        <DialogTitle className={styles.top} >
+          {card.title}
+
+          <CancelIcon onClick={() => {
+            navigate('/')
+            setOpen(false)
+          }}></CancelIcon>
+        </DialogTitle>
+
+        <DialogContent sx={{
+          width: '500px', height: '500px'
+        }}>
+          <div>
+            {
+              card.description
+            }
+          </div>
+        </DialogContent>
+
+
+
+
+
+      </Dialog>
+
+
+
+
+
+
     </div>
   )
 }

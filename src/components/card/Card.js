@@ -20,7 +20,7 @@ function Card({ card,removeCard,board,handleDragEnd,handleDragEnter}) {
     onDragEnd={()=>handleDragEnd(card.id,board.id)}
     onDragEnter={()=>handleDragEnter(card.id,board.id)}
     >
-        <Link className={styles.link} to={"/"+card.title} onClick={()=>{handleLocal(board.id,card.id)}} >{card.title}</Link>
+        <Link className={styles.link} to={"/"+card.title} onClick={()=>{handleLocal(board.id,card.id)}} ><p>{card.title}</p></Link>
       <DeleteIcon  className={styles.delIcon} onClick={()=>removeCard(card.id,board.id)} ></DeleteIcon  >
 
     </div>

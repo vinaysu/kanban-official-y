@@ -19,7 +19,7 @@ function Home() {
     const card = {
       id: uuid(),
       title: title,
-      description: ''
+      description: 'this is constant description'
     }
     const index = boards.findIndex((board) => board.id === boardId)
 

@@ -2,12 +2,10 @@
     display: flex;
     gap: 20px;
     align-items: center;
-    padding: 5px 10px;
+    padding: 10px 0px;
 }
 
-.footer button {
-    cursor: pointer;
-}
+
 
 .icon {
     cursor: pointer;
@@ -15,18 +13,19 @@
 
 
 .inner {
-    background-color: beige;
-   width: 250px;
+    background-color: rgb(220, 220, 208);
+    width: 250px;
     margin: 5px;
-    /* border: 2px solid yellow; */
+    border: 2px solid rgb(232, 232, 222);
     border-radius: 10px;
-    padding: 0 ;
+    padding: 0 10px ;
     padding-top: 10px;
 }
 
 .textarea {
-    width: 80%;
+    width: 90%;
     padding: 10px ;
     outline: none;
     border-radius: 5px;
+    background: transparent;
 }

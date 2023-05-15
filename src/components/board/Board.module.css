@@ -1,20 +1,27 @@
 .board {
-    padding: 10px;
-    background-color: rgb(243, 238, 238);
-    border: 2px red solid;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    /* border: 2px red solid; */
     min-width: 20vw;
-    min-height: 75vh;
+    max-width: 20vw;
+    /* min-height: 75vh; */
+    height: fit-content;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    border-radius: 10px;
    
 
 }
+.board:hover .dots{
+    opacity: 1;
+}
 
 .cards {
+    
     margin: 10px 0;
     border-radius: 10px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .board_top {
@@ -23,20 +30,40 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* background:white; */
 }
 
 .dots {
+    display: flex;
+   gap: 20px;
+   padding-right: 20px;
     text-align: right;
     width: 10%;
-
-    cursor: pointer;
+    opacity: 0;
+    /* cursor: pointer; */
 }
 
 .title {
+    margin: 0 5px;
+    max-width: 15vw;
     display: flex;
     align-items: center;
     gap: 20px;
 }
-.board_top{
-    background: gray;
+.editIcon{
+    cursor: pointer;
+}
+.checkIcon{
+   cursor: pointer;
+}
+
+.delIcon{
+    cursor: pointer;
+}
+
+.input{
+    padding-left:10px;
+    height: 30px;
+    border-radius: 5px;
+    background: transparent;
 }
