@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
-import  styles from './Home.module.css';
+import styles from './Home.module.css';
 import Board from '../board/Board'
 import Plus from '../plus/Puls'
-import {v4 as uuid} from 'uuid'
-import {useRecoilState} from 'recoil'
-import {Boards} from '../atoms'
+import { v4 as uuid } from 'uuid'
+import { useRecoilState } from 'recoil'
+import { Boards } from '../atoms'
 
 
 function Home() {
 
   const [boards, setBoards] = useRecoilState(Boards)
-  const [target,setTarget]=useState({cardId:'',boardId:''})
+  const [target, setTarget] = useState({ cardId: '', boardId: '' })
 
-   console.log( Object.isExtensible(boards))
+  console.log(Object.isExtensible(boards))
   // Object.preventExtensions(boards)
 
   function addCard(title, boardId) {
     const card = {
       id: uuid(),
       title: title,
-      description:''
+      description: ''
     }
     const index = boards.findIndex((board) => board.id === boardId)
 
@@ -30,8 +30,8 @@ function Home() {
     const newBoards = [...boards]
     // newBoards[index].cards.push(card)
 
-    newBoards[index] = {...newBoards[index],cards: [...newBoards[index].cards, card]}
-    
+    newBoards[index] = { ...newBoards[index], cards: [...newBoards[index].cards, card] }
+
     setBoards(newBoards)
 
   }
@@ -48,7 +48,7 @@ function Home() {
     }
 
     const newBoards = [...boards]
-    
+
     const cards = newBoards[bIndex].cards.slice();
     cards.splice(cIndex, 1);
     newBoards[bIndex] = { ...newBoards[bIndex], cards };
@@ -71,35 +71,46 @@ function Home() {
     setBoards(newBoards)
   }
 
-  function handleDragEnter(cardId,boardId){
+  function handleDragEnter(cardId, boardId) {
     setTarget({
-      cardId:cardId,boardId:boardId
+      cardId: cardId, boardId: boardId
     })
 
   }
 
-  function handleDragEnd(cardId,boardId){
+  function handleDragEnd(cardId, boardId) {
 
-    let s_boardIndex,s_cardIndex,t_boardIndex,t_cardIndex
-    s_boardIndex=boards.findIndex((board)=>board.id==boardId)
-    // if(s_boardIndex<0){return}
+    let s_boardIndex, s_cardIndex, t_boardIndex, t_cardIndex
+    s_boardIndex = boards.findIndex((board) => board.id == boardId)
+    if(s_boardIndex<0){return}
 
-    s_cardIndex=boards[s_boardIndex].cards.findIndex((card)=>card.id==cardId)
-    // if(s_cardIndex<0){return }
+    s_cardIndex = boards[s_boardIndex].cards.findIndex((card) => card.id == cardId)
+    if(s_cardIndex<0){return }
 
-    t_boardIndex=boards.findIndex((board)=>board.id==target.boardId)
-    // if(t_boardIndex<0){return}
+    t_boardIndex = boards.findIndex((board) => board.id == target.boardId)
+    if(t_boardIndex<0){return}
 
-    t_cardIndex=boards[t_boardIndex].cards.findIndex((card)=>card.id==target.cardId)
-    // if(t_cardIndex<0){return }  
+    t_cardIndex = boards[t_boardIndex].cards.findIndex((card) => card.id == target.cardId)
+    if(t_cardIndex<0){return }  
 
-    const tempBoards=[...boards]
-     const tempCrad=tempBoards[s_boardIndex].cards[s_cardIndex]
-     tempBoards[s_boardIndex].cards.splice(s_cardIndex,1)
-     tempBoards[t_boardIndex].cards.splice(t_cardIndex,0,tempCrad)
 
-     setBoards(tempBoards)
+    const tempBoards = [...boards];
+    const tempCard = tempBoards[s_boardIndex].cards[s_cardIndex];
+    tempBoards[s_boardIndex] = {
+      ...tempBoards[s_boardIndex],
+      cards: [...tempBoards[s_boardIndex].cards],
+    };
+    tempBoards[t_boardIndex] = {
+      ...tempBoards[t_boardIndex],
+      cards: [...tempBoards[t_boardIndex].cards],
+    };
+    tempBoards[s_boardIndex].cards.splice(s_cardIndex, 1);
+    tempBoards[t_boardIndex].cards.splice(t_cardIndex, 0, tempCard);
+  
+    setBoards(tempBoards);
 
+
+   
 
   }
 
@@ -107,7 +118,7 @@ function Home() {
 
   return (
     <div className={styles.home}>
-      
+
       <div className={styles.kanban}>
         <div className={styles.boards}>
           {
@@ -125,7 +136,7 @@ function Home() {
 
         </div>
       </div>
-      
+
 
     </div>
   );
