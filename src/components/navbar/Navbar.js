@@ -55,6 +55,12 @@ function Navbar() {
                     <Button variant="text">
                         <KeyboardArrowDownOutlinedIcon />
                     </Button>
+                    
+                    <button onClick={()=>{localStorage.clear()
+                    window.location.reload()
+
+                    }}>Clear</button>
+
                 </div>
 
                 <div className={style.right}>

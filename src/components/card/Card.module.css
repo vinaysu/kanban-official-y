@@ -12,20 +12,37 @@
     background-color: white;
 }
 
-.delIcon{
-    cursor: pointer;
+
+.icons{
     opacity: 0;
 }
 
-.card:hover .delIcon{
+.card:hover .icons{
     
     opacity: 1;
     
 }
 
+.input{
+    padding-left:10px;
+    height: 30px;
+    border-radius: 5px;
+    background: transparent;
+}
+.editIcon{
+    cursor: pointer;
+}
+.checkIcon{
+   cursor: pointer;
+}
 
-
-
+.delIcon{
+    cursor: pointer;
+}
+.icons{
+    display: flex;
+    gap: 10px;
+}
 
 .link{
     text-decoration: none;

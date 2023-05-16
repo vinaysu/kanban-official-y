@@ -6,6 +6,8 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { Boards } from '../atoms'
 import { Local } from '../atoms'
 import CancelIcon from '@mui/icons-material/Cancel';
+import ListIcon from '@mui/icons-material/List';
+import TitleIcon from '@mui/icons-material/Title';
 
 
 function Description(props) {     //imported in app.js
@@ -23,7 +25,7 @@ function Description(props) {     //imported in app.js
   const card = cards && cards[cardIndex]
 
 
-  console.log(card)
+  // console.log(card)
 
 
 
@@ -32,7 +34,11 @@ function Description(props) {     //imported in app.js
 
       <Dialog open={open} >
         <DialogTitle className={styles.top} >
-          {card.title}
+          <div className={styles.title}>
+          <TitleIcon/>
+          <p>{card.title}</p>
+          </div>
+          
 
           <CancelIcon onClick={() => {
             navigate('/')
@@ -43,10 +49,11 @@ function Description(props) {     //imported in app.js
         <DialogContent sx={{
           width: '500px', height: '500px'
         }}>
-          <div>
-            {
-              card.description
-            }
+          <div className={styles.description}>
+            <ListIcon /> 
+            <h2>Description</h2>
+           
+
           </div>
         </DialogContent>
 

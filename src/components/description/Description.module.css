@@ -4,3 +4,14 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.title{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.description{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}

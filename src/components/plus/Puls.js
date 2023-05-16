@@ -27,21 +27,21 @@ function Plus(props) {     //imported in board.js and Home.js
                             onChange={(event) => { setInputValue(event.target.value) }}
                         ></input>
                         <div className={styles.footer} >
-                            <Button variant='outlined' 
-                            sx={{width:'70%'}}
-                            
-                            onClick={() => {
-                                if (inputValue == '') {
-                                    alert('Input Field is Mandatory')
-                                    myref.current.focus()
+                            <Button variant='outlined'
+                                sx={{ width: '70%' }}
 
-                                } else {
-                                    onClick(inputValue)
-                                   
-                                    setInputValue('')
-                                    setShowInput(false)
-                                }
-                            }}>{card_inner}</Button>
+                                onClick={() => {
+                                    if (inputValue == '') {
+                                        alert('Input Field is Mandatory')
+                                        myref.current.focus()
+
+                                    } else {
+                                        onClick(inputValue)
+
+                                        setInputValue('')
+                                        setShowInput(false)
+                                    }
+                                }}>{card_inner}</Button>
 
                             <CancelIcon className={styles.icon} onClick={() => setShowInput(false)} ></CancelIcon>
                         </div>

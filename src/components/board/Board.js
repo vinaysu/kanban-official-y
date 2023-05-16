@@ -1,63 +1,77 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import styles from './Board.module.css'
 import Card from '../card/Card'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
 import Plus from '../plus/Puls'
-
+import { useRecoilState } from 'recoil'
+import { Boards } from '../atoms'
 
 
 function Board({ board, removeBoard, addCard, removeCard, handleDragEnd, handleDragEnter }) {
+
   function onClick(title) {
     addCard(title, board.id)
   }
 
-  const [showEdit,setShowEdit]=useState(false)
-  const [showMark,setShowMark]=useState(true)
-  const [board1,setBoard1]=useState(board)
-  const [title,setTitle]=useState(board1.title)
-  
 
-  function handleIcon(){
+  const [boards, setBoards] = useRecoilState(Boards)
+  const [showEdit, setShowEdit] = useState(false)
+  const [showMark, setShowMark] = useState(true)
+  const [title, setTitle] = useState(board.title)
+
+
+  function handleIcon() {
     setShowMark(false)
     setShowEdit(true)
   }
-  function handleCheck(title){
-    if(title==''){
-      alert('Enter the Title')
-    }else{
-    setShowMark(true)
-    setShowEdit(false)
-    const newBoard={...board1}
-    newBoard[title]=title
-    setBoard1(newBoard)
-    }
 
+  function handleCheck(title) {
+    if (title === '') {
+      alert('Enter the Title');
+    } else {
+      setShowMark(true);
+      setShowEdit(false);
+
+      setBoards(prevBoards => {
+        const boardIndex = prevBoards.findIndex(ele => ele.id === board.id);
+        if (boardIndex < 0) {
+          return prevBoards;
+        }
+        const newBoards = [...prevBoards];
+        newBoards[boardIndex] = {
+          ...newBoards[boardIndex],
+          title: title
+        };
+        return newBoards;
+      });
+    }
   }
- function handleChange(event){
-  setTitle(event.target.value)
- }
+
+  function handleChange(event) {
+    setTitle(event.target.value)
+  }
 
   return (
     <div className={styles.board} droppable draggable >
       <div className={styles.board_top}>
 
-        
+
         <div className={styles.title}>
-          
+
           {
-            showEdit?<input autoFocus className={styles.input} onChange={handleChange} value={title} ></input>:<h3>{title}</h3>
+            showEdit ? <input autoFocus className={styles.input} onChange={handleChange} value={title} ></input> : <h3>{title}</h3>
           }
 
-          
+
           <span >{board.cards.length}</span>
         </div>
 
 
         <div className={styles.dots}>
 
-          {showMark?<EditIcon className={styles.editIcon} onClick={handleIcon}></EditIcon>:<CheckIcon className={styles.checkIcon} onClick={()=>handleCheck(title)}></CheckIcon>}
+          {showMark ? <EditIcon className={styles.editIcon} onClick={handleIcon}></EditIcon> : <CheckIcon className={styles.checkIcon} onClick={() => handleCheck(title)}></CheckIcon>}
           <DeleteIcon className={styles.delIcon} onClick={() => removeBoard(board.id)} ></DeleteIcon>
         </div>
       </div>
@@ -66,7 +80,11 @@ function Board({ board, removeBoard, addCard, removeCard, handleDragEnd, handleD
           board.cards.map((card) => <Card key={card.id}
             handleDragEnd={handleDragEnd}
             handleDragEnter={handleDragEnter}
-            card={card} removeCard={removeCard} board={board} />)
+            card={card}
+            removeCard={removeCard}
+            board={board}
+
+          />)
         }
 
       </div>
