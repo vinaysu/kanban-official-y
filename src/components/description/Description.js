@@ -8,8 +8,11 @@ import { Local } from '../atoms';
 import CancelIcon from '@mui/icons-material/Cancel';
 import ListIcon from '@mui/icons-material/List';
 import TitleIcon from '@mui/icons-material/Title';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Avatar } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
+
+
 
 function Description(props) {
   const [open, setOpen] = useState(true);
@@ -18,6 +21,9 @@ function Description(props) {
   const [description, setDescription] = useState('');
   const [showTitleEdit, setShowTitleEdit] = useState(false)
   const [title, setTitle] = useState('');
+  const [showComment, setShowComment] = useState(false)
+  const [comment, setComment] = useState('')
+  const [showDetails, setShowDetails] = useState(false)
 
   const navigate = useNavigate();
   const local = useRecoilValue(Local);
@@ -76,9 +82,33 @@ function Description(props) {
   }
 
 
+
+  const handleComment = () => {
+    if (card && comment.trim() !== '') {
+      const updatedBoards = [...boards];
+      const updatedBoard = { ...board };
+      const updatedCards = [...cards];
+      const updatedCard = { ...card };
+
+      const newActivity = `Commented  :  ${comment}`
+
+      const updatedActivities = [newActivity, ...updatedCard.activities];
+      updatedCard.activities = updatedActivities;
+      updatedCards[cardIndex] = updatedCard;
+      updatedBoard.cards = updatedCards;
+      updatedBoards[boardIndex] = updatedBoard;
+
+      setBoards(updatedBoards);
+      setShowComment(false);
+      setComment('');
+    }
+  };
+
+
+
   return (
     <div>
-      <Dialog open={open}>
+      <Dialog  className={styles.dialog} open={open} >
         <DialogTitle className={styles.top}>
           <div className={styles.title}>
             <TitleIcon />
@@ -94,20 +124,20 @@ function Description(props) {
               }
 
             </div>
-            
+
           </div>
           <CancelIcon className={styles.cancelIcon} onClick={() => {
             navigate('/');
             setOpen(false);
           }} ></CancelIcon>
 
-           
+
 
         </DialogTitle>
 
-        <DialogContent sx={{ width: '500px', height: '500px' }}>
+        <DialogContent sx={{ width: '500px', height: '650px' }}>
 
-           <div className={styles.b_location}>In the List<h5> {board.title} </h5></div>
+          <div className={styles.b_location}>In the List<h5> {board.title} </h5></div>
           <div className={styles.description}>
             <div className={styles.top_description}>
               <ListIcon />
@@ -122,18 +152,66 @@ function Description(props) {
 
               {show ? (
                 <div className={styles.inner}>
-                  <TextField autoFocus value={description} onChange={handleChange} />
+                  <textarea  className={styles.textarea} autoFocus value={description} onChange={handleChange} placeholder='Enter Here' ></textarea>
                   <div className={styles.buttons}>
                     <Button onClick={handleSave}>Save</Button>
                     <Button onClick={handleCancel}>Cancel</Button>
                   </div>
                 </div>
               ) :
-                (
-                  <TextField className={styles.outer} placeholder='Edit the Description' onClick={() => setShow(true)}>Edit Description</TextField>
+                ( <div className={styles.outer} >
+                  <TextField  value={description} className={styles.out}placeholder='Edit the Description' onClick={() => setShow(true)}></TextField>
+                  </div>
                 )}
             </div>
           </div>
+
+          <div className={styles.activity}>
+
+            <div className={styles.activity_top}>
+              <ClearAllIcon></ClearAllIcon>
+              <h2>Activity</h2>
+              <Button onClick={() => setShowDetails(!showDetails)}>{showDetails ? <p>close Details</p> : <p>Show Details</p>}</Button>
+
+            </div>
+
+            <div className={styles.comment}>
+              <Avatar></Avatar>
+              <input  placeholder='Comment Here' className={styles.commentInput} value={comment} onChange={(event) => setComment(event.target.value)} onClick={() => setShowComment(!showComment)} ></input>
+              {
+                showComment ? <Button onClick={handleComment}>Comment</Button> : ''
+              }
+            </div>
+
+            {
+              showDetails ?
+                <div className={styles.details}>
+                  {
+                    card.activities.map((ele, index) => <div>
+
+                      {
+                        index == card.activities.length - 1 ?
+                          <div className={styles.commentLine}>
+                            <Avatar></Avatar>
+                            {ele + ' ' + board.title}
+                            {'  ' + card.date}
+
+                          </div> :
+                          <div className={styles.commentLine}>
+                            <Avatar></Avatar>
+                            {ele}
+                          </div>
+                      }
+
+                    </div>)
+                  }
+
+                </div> : ''
+            }
+
+
+          </div>
+
         </DialogContent>
       </Dialog>
     </div>

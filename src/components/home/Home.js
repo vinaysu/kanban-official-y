@@ -5,6 +5,8 @@ import Plus from '../plus/Puls'
 import { v4 as uuid } from 'uuid'
 import { useRecoilState } from 'recoil'
 import { Boards } from '../atoms'
+// Import the CSS styles for the Quill editor
+
 
 
 function Home() {
@@ -27,10 +29,6 @@ function Home() {
   }, [boards]);
 
 
-
-
-
-
   // console.log(Object.isExtensible(boards))
   // Object.preventExtensions(boards)
 
@@ -48,7 +46,8 @@ function Home() {
       id: uuid(),
       title: title,
       date: new Date().toLocaleString(),
-      description: 'this is constant description'
+      description: '',
+      activities:['Added this card to']
     }
     const index = boards.findIndex((board) => board.id === boardId)
 
@@ -109,6 +108,8 @@ function Home() {
     s_cardIndex = boards[s_boardIndex].cards.findIndex((card) => card.id == cardId)
     if (s_cardIndex < 0) { return }
 
+    // console.log('source board index',s_boardIndex)
+
     t_boardIndex = boards.findIndex((board) => board.id == target.boardId)
     if (t_boardIndex < 0) { return }
 
@@ -117,7 +118,7 @@ function Home() {
 
 
     const tempBoards = [...boards];
-    const tempCard = tempBoards[s_boardIndex].cards[s_cardIndex];
+    const tempCard ={...tempBoards[s_boardIndex].cards[s_cardIndex]}
     tempBoards[s_boardIndex] = {
       ...tempBoards[s_boardIndex],
       cards: [...tempBoards[s_boardIndex].cards],
@@ -129,7 +130,12 @@ function Home() {
     tempBoards[s_boardIndex].cards.splice(s_cardIndex, 1);
     tempBoards[t_boardIndex].cards.splice(t_cardIndex, 0, tempCard);
 
+    const activity= 'moved from '+''+tempBoards[s_boardIndex].title
+
+    tempBoards[t_boardIndex].cards[t_cardIndex] = { ...tempBoards[t_boardIndex].cards[t_cardIndex], activities: [activity,...tempBoards[t_boardIndex].cards[t_cardIndex].activities] }
+ 
     setBoards(tempBoards);
+    // console.log(boards)
 
   }
 
