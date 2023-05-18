@@ -11,7 +11,7 @@ function Home() {
 
   const [boards, setBoards] = useRecoilState(Boards)
   const [target, setTarget] = useState({ cardId: '', boardId: '' })
-
+  const [targetb, setTargetb] = useState({ boardId: '' })
 
 
   useEffect(() => {
@@ -133,6 +133,28 @@ function Home() {
 
   }
 
+  function handleDragEnterb(boardId) {
+    setTargetb({ boardId: boardId })
+  }
+
+
+  function handleDragEndb(boardId) {
+
+    let sourceBoardIndex = boards.findIndex((board) => board.id == boardId)
+    let targetBoardIndex = boards.findIndex((board) => board.id == targetb.boardId)
+
+    if (sourceBoardIndex < 0 || targetBoardIndex < 0) {
+      return;
+    }
+
+    const reorderedBoards = [...boards];
+    const [movedBoard] = reorderedBoards.splice(sourceBoardIndex, 1);
+    reorderedBoards.splice(targetBoardIndex, 0, movedBoard);
+
+    setBoards(reorderedBoards);
+
+
+  }
 
 
   return (
@@ -149,6 +171,8 @@ function Home() {
               removeCard={removeCard}
               handleDragEnd={handleDragEnd}
               handleDragEnter={handleDragEnter}
+              handleDragEndb={handleDragEndb}
+              handleDragEnterb={handleDragEnterb}
 
             />)
           }

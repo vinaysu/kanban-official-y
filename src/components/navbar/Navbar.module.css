@@ -1,62 +1,36 @@
-* {
+*{
     margin: 0;
     padding: 0;
 }
-
-/* .navbar {
-    position: fixed;
-    top: 0;
-    padding: 1.4rem 2rem;
-    background-color: black;
-    width: 100%;
-    overflow: hidden;
-    border-bottom: 1px solid #ccc;
-    box-shadow: 1px 0px 15px black;
-  }
-  
-  .navbar {
-    background-color: rgb(245, 218, 218);
-    background-color: rgba(234, 231, 231, 0.5);
-  } */
-
 .navBar {
     display: flex;
     justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.286);
+   
+    background-color: rgba(98, 83, 83, 0.286);
     align-items: center;
     height: 4rem;
-    color: green;
     position: sticky;
     top: 0px;
     top: 0px;
     width: 100%;
+   
 }
 
-.userImg {
-    height: 29px;
-    margin-right: 10px;
-    display: flex;
-}
 
 .right {
+    margin-right: 30px;
     display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.left{
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
-#whiteBtn {
-    background-color: white;
-    color: black;
-}
 
-.left Button {
-    color: white;
-    text-transform: none;
-}
 
-.right Button {
-    color: white;
-    text-transform: none;
-}
 
-.text {
-    font-size: 20px;
-}
+

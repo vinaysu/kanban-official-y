@@ -30,7 +30,7 @@ function Card({ card, removeCard, board, handleDragEnd, handleDragEnter }) {
     setShowMark(false)
     setShowEdit(true)
   }
- 
+
 
   function handleCheck(title) {
     if (title === '') {
@@ -44,7 +44,7 @@ function Card({ card, removeCard, board, handleDragEnd, handleDragEnter }) {
         newCard[title] = title;
         return newCard;
       });
-  
+
       const bIndex = boards.findIndex((ele) => ele.id === board.id);
       if (bIndex < 0) {
         return;
@@ -53,7 +53,7 @@ function Card({ card, removeCard, board, handleDragEnd, handleDragEnter }) {
       if (cIndex < 0) {
         return;
       }
-  
+
       const newBoards = boards.map((board, index) => {
         if (index === bIndex) {
           const newCards = board.cards.map((card, cardIndex) => {
@@ -66,18 +66,18 @@ function Card({ card, removeCard, board, handleDragEnd, handleDragEnter }) {
         }
         return board;
       });
-      
+
       // const newBoards = [...boards];
       // newBoards[bIndex].cards[cIndex] = { ...newBoards[bIndex].cards[cIndex], title: title };
 
 
-  
+
       setBoards(newBoards);
     }
   }
-  
-  
-  
+
+
+
 
   function handleChange(event) {
     setTitle(event.target.value)
@@ -85,9 +85,12 @@ function Card({ card, removeCard, board, handleDragEnd, handleDragEnter }) {
 
 
   return (
-    <div className={styles.card} draggable droppable
-      onDragEnd={() => handleDragEnd(card.id, board.id)}
-      onDragEnter={() => handleDragEnter(card.id, board.id)}
+    <div className={styles.card}
+
+    draggable droppable
+    onDragEnd={() => handleDragEnd(card.id, board.id)}
+    onDragEnter={() => handleDragEnter(card.id, board.id)}
+     
     >
       {/* <Link className={styles.link} to={"/"+card.title} onClick={()=>{handleLocal(board.id,card.id)}} ><p>{card.title}</p></Link> */}
 
@@ -99,8 +102,12 @@ function Card({ card, removeCard, board, handleDragEnd, handleDragEnter }) {
 
       <div className={styles.icons}>
 
-        {showMark ? <EditIcon className={styles.editIcon} onClick={handleIcon}></EditIcon> : <CheckIcon className={styles.checkIcon} onClick={() => handleCheck(title)}></CheckIcon>}
+        {showMark ? <EditIcon className={styles.editIcon} onClick={handleIcon}></EditIcon>
+          : <CheckIcon className={styles.checkIcon} onClick={() => handleCheck(title)}></CheckIcon>
+        }
+
         <DeleteIcon className={styles.delIcon} onClick={() => removeCard(card.id, board.id)} ></DeleteIcon  >
+        
       </div>
 
 

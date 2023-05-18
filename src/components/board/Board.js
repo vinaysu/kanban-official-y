@@ -8,8 +8,11 @@ import Plus from '../plus/Puls'
 import { useRecoilState } from 'recoil'
 import { Boards } from '../atoms'
 
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-function Board({ board, removeBoard, addCard, removeCard, handleDragEnd, handleDragEnter }) {
+
+
+function Board({ board, removeBoard, addCard, removeCard, handleDragEnd, handleDragEnter, handleDragEndb, handleDragEnterb }) {
 
   function onClick(title) {
     addCard(title, board.id)
@@ -54,8 +57,13 @@ function Board({ board, removeBoard, addCard, removeCard, handleDragEnd, handleD
   }
 
   return (
-    <div className={styles.board} droppable draggable >
-      <div className={styles.board_top}>
+    <div className={styles.board} >
+      <div className={styles.board_top}
+        draggable droppable
+        onDragEnd={() => handleDragEndb(board.id)}
+        onDragEnter={() => handleDragEnterb(board.id)}
+
+      >
 
 
         <div className={styles.title}>
