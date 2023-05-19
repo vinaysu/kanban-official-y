@@ -193,8 +193,8 @@ function Description(props) {
                         index == card.activities.length - 1 ?
                           <div className={styles.commentLine}>
                             <Avatar></Avatar>
-                            {ele + ' ' + board.title}
-                            {'  ' + card.date}
+                            {ele + ' ' +board.title}
+                            {' ' + card.date}
 
                           </div> :
                           <div className={styles.commentLine}>
