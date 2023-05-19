@@ -130,7 +130,8 @@ function Home() {
     tempBoards[s_boardIndex].cards.splice(s_cardIndex, 1);
     tempBoards[t_boardIndex].cards.splice(t_cardIndex, 0, tempCard);
 
-    const activity= 'moved from '+''+tempBoards[s_boardIndex].title
+    const date=new Date().toLocaleString()
+    const activity= 'moved from '+''+tempBoards[s_boardIndex].title+" "+date
 
     tempBoards[t_boardIndex].cards[t_cardIndex] = { ...tempBoards[t_boardIndex].cards[t_cardIndex], activities: [activity,...tempBoards[t_boardIndex].cards[t_cardIndex].activities] }
  
