@@ -47,6 +47,8 @@ id:'2',
 4. Shivpujan Kumar
 5. Fahad Ansari
 
+Deploy link : https://kanban-board-viyn.onrender.com/
+
 # Kanban-Board-project.
 
  * STEP1:- Set up the React development environment: To develop a React application, you need to have Node.js and npm installed on your system.
